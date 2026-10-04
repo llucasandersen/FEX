@@ -1464,6 +1464,7 @@ uintptr_t ContextImpl::CompileBlock(FEXCore::Core::CpuStateFrame* Frame, uint64_
   }
 #endif
 
+#ifdef FEX_IOS_HOST
   /* iOS-Madeira ml304 (task #51): REPORT CallbackPtr ENTRY ON ITS OWN, not via the bogus-RIP path.
    *
    * ml302 proved the JITCallback prologue writes the bad State.rip, and ml303 added an LR witness --
@@ -1514,6 +1515,8 @@ uintptr_t ContextImpl::CompileBlock(FEXCore::Core::CpuStateFrame* Frame, uint64_
                         IosCbEntryLog[4], IosCbEntryLog[5], IosCbEntryLog[7]);
     }
   }
+
+#endif
 
   /* iOS-Madeira: refuse to compile obviously-invalid guest RIPs. After a
    * NULL-vtable virtual call (`call [rax+8]` with rax=0), control flow
