@@ -270,6 +270,10 @@ endif()
 function(AddObject Name)
   add_library(${Name} OBJECT ${SRCS})
 
+  if (ENABLE_FEX_ALLOCATOR)
+    target_compile_definitions(${Name} PRIVATE ENABLE_FEX_ALLOCATOR=1)
+  endif()
+
   target_link_libraries(${Name} PRIVATE FEXCore_Base)
   target_compile_options(${Name} PRIVATE ${FEX_TUNE_COMPILE_FLAGS})
   AddDefaultOptionsToTarget(${Name})
